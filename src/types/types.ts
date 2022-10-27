@@ -15,6 +15,11 @@ export interface InputContextInterface {
   setUpdatedPerson: (args: any) => {};
 }
 
+export interface LoadingContextInterface {
+  isLoading: boolean;
+  setIsLoading: (args: boolean) => {};
+}
+
 export type UpdatedDetails = {
   updatedDetails: PersonInterface;
 };

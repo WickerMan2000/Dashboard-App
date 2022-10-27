@@ -7,6 +7,7 @@ import { useContext } from "react";
 import InputContext from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import { PersonInterface } from "../../types/types";
+import LoadingContext from "../../store/LoadingContextProvider";
 
 const StyledListItem = styled(ListItem)`
   cursor: pointer;
@@ -18,10 +19,13 @@ const StyledListItem = styled(ListItem)`
 export const Person = (props: PersonInterface) => {
   const { id, name, email, photo } = props;
   const { setPerson } = useContext(InputContext);
+  const { setIsLoading } = useContext(LoadingContext);
 
   const sendPersonDetails = async () => {
+    setIsLoading(true);
     const { data } = await ApiService.getPerson(id);
     setPerson({ ...data });
+    setIsLoading(false);
   };
 
   return (

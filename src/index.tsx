@@ -4,16 +4,19 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import InputContextProvider from "./store/InputContext";
+import LoadingContextProvider from "./store/LoadingContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <InputContextProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </InputContextProvider>
+  <LoadingContextProvider>
+    <InputContextProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </InputContextProvider>
+  </LoadingContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

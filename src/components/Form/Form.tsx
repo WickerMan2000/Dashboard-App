@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import styled from "styled-components";
 import InputContext from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
+import LoadingContext from "../../store/LoadingContextProvider";
 
 const StyledFormControl = styled(FormControl)`
   width: 100%;
@@ -33,6 +34,7 @@ const FeedBack = styled.p`
 
 export const Form = () => {
   const { person, setUpdatedPerson } = useContext(InputContext);
+  const { setIsLoading } = useContext(LoadingContext);
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -56,8 +58,10 @@ export const Form = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsLoading(true);
     const { data } = await ApiService.modifyPerson(person.id, input);
     setUpdatedPerson({ updatedDetails: data.data });
+    setIsLoading(false);
   };
 
   return (
