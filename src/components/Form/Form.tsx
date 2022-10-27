@@ -1,6 +1,4 @@
 import { FormEvent } from "react";
-import Joi from "joi";
-import { useValidator } from "react-joi";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -32,37 +30,6 @@ const FeedBack = styled.p`
 `;
 
 export const Form = () => {
-  const { state, setData, setExplicitField, validate }: any = useValidator({
-    initialData: {
-      name: null,
-      email: null,
-    },
-    schema: Joi.object({
-      name: Joi.string().required().label("Name"),
-      email: Joi.string()
-        .email({
-          tlds: { allow: false },
-        })
-        .required(),
-    }),
-    explicitCheck: {
-      name: false,
-      email: false,
-    },
-    validationOptions: {
-      abortEarly: true,
-    },
-  });
-
-  const updateField = (e: any) => {
-    e.persist();
-
-    setData((old: any) => ({
-      ...old,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
@@ -86,13 +53,9 @@ export const Form = () => {
               border: "0px solid #ececec",
             },
           }}
-          onChange={updateField}
-          onBlur={() => setExplicitField("name", true)}
         />
       </StyledFormControl>
-      <FeedBack>
-        {state.$errors.name.map((data: any) => data.$message).join(",")}
-      </FeedBack>
+      <FeedBack>Feedback</FeedBack>
       <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
         <InputLabel shrink htmlFor="email">
           Email address
@@ -173,11 +136,7 @@ export const Form = () => {
         <Button variant="outlined" sx={{ textTransform: "none" }}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          sx={{ textTransform: "none" }}
-          onClick={validate}
-        >
+        <Button variant="contained" sx={{ textTransform: "none" }}>
           Save
         </Button>
       </StyledButtons>
