@@ -20,6 +20,13 @@ export interface LoadingContextInterface {
   setIsLoading: (args: boolean) => {};
 }
 
+export interface FeedBackInterface {
+  nameMessage: string;
+  emailMessage: string;
+  phoneMessage: string;
+  ready: boolean;
+}
+
 export type UpdatedDetails = {
   updatedDetails: PersonInterface;
 };

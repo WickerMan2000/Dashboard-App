@@ -7,6 +7,8 @@ import styled from "styled-components";
 import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
+import { FeedBackInterface, PersonInterface } from "../../types/types";
+import { validateEmail } from "../../helpers/helpers";
 
 const StyledFormControl = styled(FormControl)`
   width: 100%;
@@ -27,20 +29,31 @@ const StyledButtons = styled.div`
 
 const FeedBack = styled.p`
   margin: 1px;
+  margin-bottom: 6px;
   color: red;
   display: inline-block;
   font-size: 12px;
 `;
 
 export const Form = () => {
-  const { person, setUpdatedPerson } = useContext(InputContext);
   const { setIsLoading } = useContext(LoadingContext);
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [input, setInput] = useState(defaultPerson);
+  const { person, setUpdatedPerson } = useContext(InputContext);
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const [input, setInput] = useState<PersonInterface>(defaultPerson);
+  const [feedback, setFeedback] = useState<FeedBackInterface>({
+    nameMessage: "",
+    emailMessage: "",
+    phoneMessage: "",
+    ready: false,
+  });
 
   useEffect(() => {
     setInput(person);
   }, [person]);
+
+  useEffect(() => {
+    validator(input);
+  }, [input]);
 
   const handleChange = (e: any) => {
     setIsEnabled(true);
@@ -53,6 +66,40 @@ export const Form = () => {
   const handleCancel = () => {
     setInput(person);
     setIsEnabled(false);
+  };
+
+  const validator = (value: PersonInterface) => {
+    switch (true) {
+      case value.name === "":
+        setFeedback({
+          ...feedback,
+          nameMessage: "Name is required",
+          ready: false,
+        });
+        break;
+      case !validateEmail(value.email):
+        setFeedback({
+          ...feedback,
+          emailMessage: "Email has an invalid format",
+          ready: false,
+        });
+        break;
+      case value.phone === "":
+        setFeedback({
+          ...feedback,
+          phoneMessage: "Phone is required",
+          ready: false,
+        });
+        break;
+      default:
+        setFeedback({
+          nameMessage: "",
+          emailMessage: "",
+          phoneMessage: "",
+          ready: true,
+        });
+        break;
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -73,7 +120,7 @@ export const Form = () => {
         <TextField
           name="name"
           id="name"
-          value={input?.name}
+          value={input.name}
           margin="normal"
           type="text"
           variant="outlined"
@@ -87,15 +134,15 @@ export const Form = () => {
           }}
         />
       </StyledFormControl>
-      <FeedBack>Feedback</FeedBack>
-      <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
+      <FeedBack>{feedback.nameMessage}</FeedBack>
+      <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
         <InputLabel shrink htmlFor="email">
           Email address
         </InputLabel>
         <TextField
           name="email"
           id="email"
-          value={input?.email}
+          value={input.email}
           margin="normal"
           type="text"
           variant="outlined"
@@ -109,14 +156,15 @@ export const Form = () => {
           }}
         />
       </StyledFormControl>
-      <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
+      <FeedBack>{feedback.emailMessage}</FeedBack>
+      <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
         <InputLabel shrink htmlFor="phone">
           Phone
         </InputLabel>
         <TextField
           name="phone"
           id="phone"
-          value={input?.phone}
+          value={input.phone}
           margin="normal"
           type="text"
           variant="outlined"
@@ -130,6 +178,7 @@ export const Form = () => {
           }}
         />
       </StyledFormControl>
+      <FeedBack>{feedback.phoneMessage}</FeedBack>
       <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
         <InputLabel shrink htmlFor="address">
           Address
@@ -137,7 +186,7 @@ export const Form = () => {
         <TextField
           name="address"
           id="address"
-          value={input?.address}
+          value={input.address}
           margin="normal"
           type="text"
           variant="outlined"
@@ -158,7 +207,7 @@ export const Form = () => {
         <TextField
           name="company"
           id="company"
-          value={input?.company}
+          value={input.company}
           margin="normal"
           type="text"
           variant="outlined"
@@ -176,7 +225,7 @@ export const Form = () => {
         {isEnabled && (
           <Button
             variant="outlined"
-            sx={{ textTransform: "none" }}
+            sx={{ textTransform: "none", backgroundColor: "#f7f7f7" }}
             onClick={handleCancel}
           >
             Cancel
@@ -186,7 +235,7 @@ export const Form = () => {
           type="submit"
           variant="contained"
           sx={{ textTransform: "none" }}
-          disabled={!isEnabled}
+          disabled={!isEnabled || !feedback.ready}
         >
           Save
         </Button>
