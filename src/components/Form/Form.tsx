@@ -1,9 +1,11 @@
-import { FormEvent } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
+import InputContext from "../../store/InputContextProvider";
+import ApiService from "../../service/ApiService";
 
 const StyledFormControl = styled(FormControl)`
   width: 100%;
@@ -30,23 +32,49 @@ const FeedBack = styled.p`
 `;
 
 export const Form = () => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const { person, setUpdatedPerson } = useContext(InputContext);
+  const [input, setInput] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    company: "",
+  });
+
+  useEffect(() => {
+    setInput(person);
+  }, [person]);
+
+  const handleChange = (e: any) => {
+    setInput((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleCancel = () => setInput(person);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const { data } = await ApiService.modifyPerson(person.id, input);
+    setUpdatedPerson({ updatedDetails: data.data });
   };
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <StyledFormControl variant="standard">
+      <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
         <InputLabel shrink htmlFor="name">
           Name
         </InputLabel>
         <TextField
           name="name"
           id="name"
+          value={input?.name}
           margin="normal"
           type="text"
           variant="outlined"
           placeholder="Name"
+          onChange={handleChange}
           inputProps={{
             style: {
               height: "2px",
@@ -63,10 +91,12 @@ export const Form = () => {
         <TextField
           name="email"
           id="email"
+          value={input?.email}
           margin="normal"
           type="text"
           variant="outlined"
           placeholder="Email address"
+          onChange={handleChange}
           inputProps={{
             style: {
               height: "2px",
@@ -82,10 +112,12 @@ export const Form = () => {
         <TextField
           name="phone"
           id="phone"
+          value={input?.phone}
           margin="normal"
           type="text"
           variant="outlined"
           placeholder="Phone"
+          onChange={handleChange}
           inputProps={{
             style: {
               height: "2px",
@@ -101,10 +133,12 @@ export const Form = () => {
         <TextField
           name="address"
           id="address"
+          value={input?.address}
           margin="normal"
           type="text"
           variant="outlined"
           placeholder="Address"
+          onChange={handleChange}
           inputProps={{
             style: {
               height: "2px",
@@ -120,10 +154,12 @@ export const Form = () => {
         <TextField
           name="company"
           id="company"
+          value={input?.company}
           margin="normal"
           type="text"
           variant="outlined"
           placeholder="Company"
+          onChange={handleChange}
           inputProps={{
             style: {
               height: "2px",
@@ -133,10 +169,18 @@ export const Form = () => {
         />
       </StyledFormControl>
       <StyledButtons>
-        <Button variant="outlined" sx={{ textTransform: "none" }}>
+        <Button
+          variant="outlined"
+          sx={{ textTransform: "none" }}
+          onClick={handleCancel}
+        >
           Cancel
         </Button>
-        <Button variant="contained" sx={{ textTransform: "none" }}>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{ textTransform: "none" }}
+        >
           Save
         </Button>
       </StyledButtons>

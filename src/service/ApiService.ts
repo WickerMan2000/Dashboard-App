@@ -7,10 +7,10 @@ export default class ApiService {
   }
 
   static async getPerson(id: any) {
-    return await axios.get(`${API}/:${id}`);
+    return await axios.get(`${API}/${id}`);
   }
 
   static async modifyPerson(id: any, data: any) {
-    return await axios.put(`${API}/:${id}`, { data });
+    return await axios.put(`${API}/${id}`, { data });
   }
 }
