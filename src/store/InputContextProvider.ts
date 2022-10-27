@@ -11,9 +11,9 @@ export const defaultPerson = {
 
 const InputContext = React.createContext({
   person: defaultPerson,
-  updatedPerson: defaultPerson,
-  setPerson: (value: any) => {},
-  setUpdatedPerson: (value: any) => {},
+  updatedPerson: { updatedDetails: defaultPerson },
+  setPerson: (args: any) => {},
+  setUpdatedPerson: (args: any) => {},
 });
 
 export default InputContext;

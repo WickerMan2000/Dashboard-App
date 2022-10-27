@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { PersonInterface, UpdatedDetails } from "../types/types";
+import {
+  InputContextInterface,
+  PersonInterface,
+  UpdatedDetails,
+} from "../types/types";
 import InputContext, { defaultPerson } from "./InputContextProvider";
 
 const { Provider } = InputContext;
@@ -17,7 +21,11 @@ const InputContextProvider = ({ children }: { children: any }) => {
     setUpdatedPerson,
   };
 
-  return <Provider value={InputContext as any}>{children}</Provider>;
+  return (
+    <Provider value={InputContext as InputContextInterface}>
+      {children}
+    </Provider>
+  );
 };
 
 export default InputContextProvider;

@@ -3,10 +3,10 @@ import ApiService from "../../service/ApiService";
 import { Person } from "../Person/Person";
 import List from "@mui/material/List";
 import InputContext from "../../store/InputContextProvider";
-import { PersonInterface } from "../../types/types";
+import { PersonInterface, UpdatedDetails } from "../../types/types";
 
 export const Persons = () => {
-  const [persons, setPersons] = useState<PersonInterface[]>([]);
+  const [persons, setPersons] = useState<Array<PersonInterface>>([]);
   const { updatedPerson } = useContext(InputContext);
 
   useEffect(() => {
@@ -19,13 +19,13 @@ export const Persons = () => {
   }, []);
 
   useEffect(() => {
-    const { updatedDetails } = updatedPerson as any;
+    const { updatedDetails } = updatedPerson as UpdatedDetails;
     const updatedPersonsList = persons.map((person) =>
       updatedDetails.id === (person as PersonInterface).id
         ? { ...updatedDetails, photo: (person as PersonInterface).photo }
         : person
     );
-    setPersons(updatedPersonsList as PersonInterface[]);
+    setPersons(updatedPersonsList as Array<PersonInterface>);
   }, [updatedPerson]);
 
   return (
@@ -42,7 +42,7 @@ export const Persons = () => {
       }}
     >
       {persons.map((person, index) => (
-        <Person key={index} {...(person as any)} />
+        <Person key={index} {...(person as PersonInterface)} />
       ))}
     </List>
   );

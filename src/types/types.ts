@@ -8,6 +8,13 @@ export interface PersonInterface {
   photo?: string;
 }
 
+export interface InputContextInterface {
+  person: PersonInterface;
+  updatedPerson: UpdatedDetails;
+  setPerson: (args: any) => {};
+  setUpdatedPerson: (args: any) => {};
+}
+
 export type UpdatedDetails = {
   updatedDetails: PersonInterface;
 };
