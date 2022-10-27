@@ -1,4 +1,3 @@
-import "./App.css";
 import styled from "styled-components";
 import { Persons } from "./components/Persons/Persons";
 import { Form } from "./components/Form/Form";
@@ -13,7 +12,7 @@ const Container = styled.div`
 
 function App() {
   return (
-    <Container className="App">
+    <Container className="App" data-testid="main-app">
       <Persons />
       <Form />
     </Container>
