@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-import InputContext from "../../store/InputContextProvider";
+import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 
@@ -35,26 +35,25 @@ const FeedBack = styled.p`
 export const Form = () => {
   const { person, setUpdatedPerson } = useContext(InputContext);
   const { setIsLoading } = useContext(LoadingContext);
-  const [input, setInput] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    company: "",
-  });
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [input, setInput] = useState(defaultPerson);
 
   useEffect(() => {
     setInput(person);
   }, [person]);
 
   const handleChange = (e: any) => {
+    setIsEnabled(true);
     setInput((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleCancel = () => setInput(person);
+  const handleCancel = () => {
+    setInput(person);
+    setIsEnabled(false);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,6 +61,7 @@ export const Form = () => {
     const { data } = await ApiService.modifyPerson(person.id, input);
     setUpdatedPerson({ updatedDetails: data.data });
     setIsLoading(false);
+    setIsEnabled(false);
   };
 
   return (
@@ -173,17 +173,20 @@ export const Form = () => {
         />
       </StyledFormControl>
       <StyledButtons>
-        <Button
-          variant="outlined"
-          sx={{ textTransform: "none" }}
-          onClick={handleCancel}
-        >
-          Cancel
-        </Button>
+        {isEnabled && (
+          <Button
+            variant="outlined"
+            sx={{ textTransform: "none" }}
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+        )}
         <Button
           type="submit"
           variant="contained"
           sx={{ textTransform: "none" }}
+          disabled={!isEnabled}
         >
           Save
         </Button>
