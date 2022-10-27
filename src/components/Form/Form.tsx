@@ -7,8 +7,8 @@ import styled from "styled-components";
 import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
-import { FeedBackInterface, PersonInterface } from "../../types/types";
-import { validateEmail } from "../../helpers/helpers";
+import { PersonInterface } from "../../types/types";
+import { useFeedback } from "../../customHooks/useFeedback";
 
 const StyledFormControl = styled(FormControl)`
   width: 100%;
@@ -38,14 +38,9 @@ const FeedBack = styled.p`
 export const Form = () => {
   const { setIsLoading } = useContext(LoadingContext);
   const { person, setUpdatedPerson } = useContext(InputContext);
+  const { feedback, validator } = useFeedback();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [input, setInput] = useState<PersonInterface>(defaultPerson);
-  const [feedback, setFeedback] = useState<FeedBackInterface>({
-    nameMessage: "",
-    emailMessage: "",
-    phoneMessage: "",
-    ready: false,
-  });
 
   useEffect(() => {
     setInput(person);
@@ -66,40 +61,6 @@ export const Form = () => {
   const handleCancel = () => {
     setInput(person);
     setIsEnabled(false);
-  };
-
-  const validator = (value: PersonInterface) => {
-    switch (true) {
-      case value.name === "":
-        setFeedback({
-          ...feedback,
-          nameMessage: "Name is required",
-          ready: false,
-        });
-        break;
-      case !validateEmail(value.email):
-        setFeedback({
-          ...feedback,
-          emailMessage: "Email has an invalid format",
-          ready: false,
-        });
-        break;
-      case value.phone === "":
-        setFeedback({
-          ...feedback,
-          phoneMessage: "Phone is required",
-          ready: false,
-        });
-        break;
-      default:
-        setFeedback({
-          nameMessage: "",
-          emailMessage: "",
-          phoneMessage: "",
-          ready: true,
-        });
-        break;
-    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {

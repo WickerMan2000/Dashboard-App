@@ -20,7 +20,7 @@ export interface LoadingContextInterface {
   setIsLoading: (args: boolean) => {};
 }
 
-export interface FeedBackInterface {
+export interface FeedbackInterface {
   nameMessage: string;
   emailMessage: string;
   phoneMessage: string;
