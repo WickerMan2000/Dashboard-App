@@ -2,13 +2,15 @@ import { useState } from "react";
 import { validateEmail } from "../helpers/helpers";
 import { FeedbackInterface, PersonInterface } from "../types/types";
 
+export const defaultFeedback = {
+  nameMessage: "",
+  emailMessage: "",
+  phoneMessage: "",
+  ready: false,
+};
+
 export const useFeedback = () => {
-  const [feedback, setFeedback] = useState<FeedbackInterface>({
-    nameMessage: "",
-    emailMessage: "",
-    phoneMessage: "",
-    ready: false,
-  });
+  const [feedback, setFeedback] = useState<FeedbackInterface>(defaultFeedback);
 
   const validator = (value: PersonInterface) => {
     switch (true) {
@@ -44,5 +46,5 @@ export const useFeedback = () => {
     }
   };
 
-  return { feedback, validator };
+  return { feedback, setFeedback, validator };
 };

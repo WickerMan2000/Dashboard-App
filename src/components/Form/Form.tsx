@@ -8,7 +8,7 @@ import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { PersonInterface } from "../../types/types";
-import { useFeedback } from "../../customHooks/useFeedback";
+import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 
 const StyledFormControl = styled(FormControl)`
   width: 100%;
@@ -38,14 +38,17 @@ const FeedBack = styled.p`
 export const Form = () => {
   const { setIsLoading } = useContext(LoadingContext);
   const { person, setUpdatedPerson } = useContext(InputContext);
-  const { feedback, validator } = useFeedback();
+  const { feedback, setFeedback, validator } = useFeedback();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [input, setInput] = useState<PersonInterface>(defaultPerson);
 
   useEffect(() => {
     setInput(person);
 
-    return  () => setIsEnabled(false);
+    return  () => {
+      setIsEnabled(false);
+      setFeedback(defaultFeedback);
+    }
   }, [person]);
 
   useEffect(() => {
