@@ -45,7 +45,7 @@ export const Form = () => {
   useEffect(() => {
     setInput(person);
 
-    return  () => {
+    return () => {
       setIsEnabled(false);
       setFeedback(defaultFeedback);
     }
@@ -70,15 +70,22 @@ export const Form = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsLoading(true);
-    const { data } = await ApiService.modifyPerson(person.id, input);
-    setUpdatedPerson({ updatedDetails: data.data });
-    setIsLoading(false);
-    setIsEnabled(false);
+
+    try {
+      setIsLoading(true);
+      const { data } = await ApiService.modifyPerson(person.id, input);
+      setUpdatedPerson({ updatedDetails: data.data });
+      setIsLoading(false);
+      setIsEnabled(false);
+    } catch (error) {
+      setIsLoading(false);
+      setIsEnabled(false);
+      console.log((error as Error).message);
+    }
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit} data-testid="form">
       <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
         <InputLabel shrink htmlFor="name">
           Name
@@ -93,6 +100,7 @@ export const Form = () => {
           placeholder="Name"
           onChange={handleChange}
           inputProps={{
+            "data-testid": "name-field",
             style: {
               height: "2px",
               border: "0px solid #ececec",
@@ -100,7 +108,7 @@ export const Form = () => {
           }}
         />
       </StyledFormControl>
-      <FeedBack>{feedback.nameMessage}</FeedBack>
+      <FeedBack data-testid="name-msg">{feedback.nameMessage}</FeedBack>
       <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
         <InputLabel shrink htmlFor="email">
           Email address
@@ -115,6 +123,7 @@ export const Form = () => {
           placeholder="Email address"
           onChange={handleChange}
           inputProps={{
+            "data-testid": "email-field",
             style: {
               height: "2px",
               border: "0px solid #ececec",
@@ -122,7 +131,7 @@ export const Form = () => {
           }}
         />
       </StyledFormControl>
-      <FeedBack>{feedback.emailMessage}</FeedBack>
+      <FeedBack data-testid="email-msg">{feedback.emailMessage}</FeedBack>
       <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
         <InputLabel shrink htmlFor="phone">
           Phone
@@ -137,6 +146,7 @@ export const Form = () => {
           placeholder="Phone"
           onChange={handleChange}
           inputProps={{
+            "data-testid": "phone-field",
             style: {
               height: "2px",
               border: "0px solid #ececec",
@@ -144,7 +154,7 @@ export const Form = () => {
           }}
         />
       </StyledFormControl>
-      <FeedBack>{feedback.phoneMessage}</FeedBack>
+      <FeedBack data-testid="phone-msg">{feedback.phoneMessage}</FeedBack>
       <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
         <InputLabel shrink htmlFor="address">
           Address
@@ -159,6 +169,7 @@ export const Form = () => {
           placeholder="Address"
           onChange={handleChange}
           inputProps={{
+            "data-testid": "address-field",
             style: {
               height: "2px",
               border: "0px solid #ececec",
@@ -180,6 +191,7 @@ export const Form = () => {
           placeholder="Company"
           onChange={handleChange}
           inputProps={{
+            "data-testid": "company-field",
             style: {
               height: "2px",
               border: "0px solid #ececec",
@@ -191,6 +203,7 @@ export const Form = () => {
         {isEnabled && (
           <Button
             variant="outlined"
+            data-testid="cancel-btn"
             sx={{ textTransform: "none", backgroundColor: "#f7f7f7" }}
             onClick={handleCancel}
           >
@@ -199,6 +212,7 @@ export const Form = () => {
         )}
         <Button
           type="submit"
+          data-testid="save-btn"
           variant="contained"
           sx={{ textTransform: "none" }}
           disabled={!isEnabled || !feedback.ready}
