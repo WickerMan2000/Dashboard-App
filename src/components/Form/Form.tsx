@@ -44,6 +44,8 @@ export const Form = () => {
 
   useEffect(() => {
     setInput(person);
+
+    return  () => setIsEnabled(false);
   }, [person]);
 
   useEffect(() => {
