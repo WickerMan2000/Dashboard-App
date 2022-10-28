@@ -17,7 +17,7 @@ const Spinner = () => {
         height: "50px",
       }}
     >
-      <CircularProgress />
+      <CircularProgress data-testid="circular-spinner" />
     </Box>
   );
 };

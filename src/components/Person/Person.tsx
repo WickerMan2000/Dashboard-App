@@ -22,18 +22,23 @@ export const Person = (props: PersonInterface) => {
   const { setIsLoading } = useContext(LoadingContext);
 
   const sendPersonDetails = async () => {
-    setIsLoading(true);
-    const { data } = await ApiService.getPerson(id);
-    setPerson({ ...data });
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const { data } = await ApiService.getPerson(id);
+      setPerson({ ...data });
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log((error as Error).message);
+    }
   };
 
   return (
-    <StyledListItem onClick={sendPersonDetails}>
+    <StyledListItem onClick={sendPersonDetails} data-testid="person">
       <ListItemAvatar>
-        <Avatar src={photo} alt="person" />
+        <Avatar src={photo} alt="person" data-testid="avatar" />
       </ListItemAvatar>
-      <ListItemText primary={name} secondary={email} />
+      <ListItemText primary={name} secondary={email} data-testid="name_&_email" />
     </StyledListItem>
   );
 };

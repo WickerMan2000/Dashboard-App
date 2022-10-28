@@ -14,12 +14,17 @@ export const Persons = () => {
 
   useEffect(() => {
     const fetchPersons = async () => {
-      setIsLoading(true);
-      const result = await ApiService.getAllPersons();
-      setPersons(result.data);
-      setIsLoading(false);
+      try {
+        setIsLoading(true);
+        const result = await ApiService.getAllPersons();
+        setPersons(result.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.log((error as Error).message);
+      }
     };
-
+    
     fetchPersons();
   }, []);
 
