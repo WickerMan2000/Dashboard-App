@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { defaultFeedback, useFeedback } from './useFeedback';
 
 const initialValues = { id: "", name: "", email: "", phone: "",   address: "", company: "" };
@@ -13,7 +13,7 @@ const CustomForm = () => {
         return () => setFeedback(defaultFeedback);
     }, [unmount]);
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValues((prevState) => ({
           ...prevState,
           [e.target.name]: e.target.value,
@@ -22,7 +22,7 @@ const CustomForm = () => {
 
     const handleClick = () => setUnmount(true);
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         validator(values);
     };

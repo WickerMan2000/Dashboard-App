@@ -4,5 +4,5 @@ import App from "./App";
 it("renders learn react link", () => {
   render(<App />);
 
-  expect(screen.getByTestId("main-app")).toBeInTheDocument();
+  expect(screen.getByTestId("form")).toBeInTheDocument();
 });

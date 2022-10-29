@@ -8,7 +8,7 @@ import InputContext, { defaultPerson } from "./InputContextProvider";
 
 const { Provider } = InputContext;
 
-const InputContextProvider = ({ children }: { children: any }) => {
+const InputContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [person, setPerson] = useState<PersonInterface>(defaultPerson);
   const [updatedPerson, setUpdatedPerson] = useState<UpdatedDetails>({
     updatedDetails: defaultPerson,

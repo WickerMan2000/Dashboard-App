@@ -3,6 +3,7 @@ import { renderWithCustomInputProvider } from "../../helpers/render.helpers";
 import { mockedInputContextConfigurationData } from "../../mockData/context/context.data";
 import { mockedUserData } from "../../mockData/user/user.data";
 import ApiService from "../../service/ApiService";
+import { InputContextInterface } from "../../types/types";
 import { Form } from "./Form";
 import { feedback, fields } from "./form.data";
 
@@ -32,10 +33,10 @@ describe("Form", () => {
         expect(saveButton).toBeInTheDocument();
         expect(saveButton).toBeDisabled();
         expect(cancelButton).not.toBeInTheDocument();
-    })
+    });
 
     it('should render the Form with the given user`s data in each field', async () => {
-        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as any);
+        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
 
         const nameField = getByTestId('name-field');
         const emailField = getByTestId('email-field');
@@ -53,11 +54,11 @@ describe("Form", () => {
         expect(saveButton).toBeInTheDocument();
         expect(saveButton).toBeDisabled();
         expect(cancelButton).not.toBeInTheDocument();
-    })
+    });
 
     test.each(fields)(
         'should check the %p`s field functionality', (_, field, value) => {
-            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as any);
+            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
             let cancelButton;
     
             const actualField = getByTestId(field);
@@ -75,11 +76,11 @@ describe("Form", () => {
             expect(saveButton).toBeEnabled();
             expect(cancelButton).toBeInTheDocument();
         }
-    )
+    );
 
     test.each(feedback)(
         'should check if appropriate feedback is given when %p is not provided', (_, field, message, value, feedback) => {
-            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as any);
+            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
             let cancelButton;
     
             const actualField = getByTestId(field);
@@ -98,7 +99,7 @@ describe("Form", () => {
             expect(actualFeedback.textContent).toBe(feedback);
             expect(cancelButton).toBeInTheDocument();
         }
-    )
+    );
 
     it('should check if submit button is pushed, appropriate api is called', async () => {
         const typedName = 'James Dean';
@@ -113,7 +114,7 @@ describe("Form", () => {
         }));
         jest.spyOn(console, 'log');
 
-        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as any);
+        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
 
         const nameField = getByTestId('name-field');
         const phoneField = getByTestId('phone-field');
@@ -140,7 +141,7 @@ describe("Form", () => {
         await waitFor(() => {
             expect(console.log).not.toHaveBeenCalled();
         });
-    })
+    });
 
     it('should check if submit button is pushed, the appropriate api call fails', async () => {
         const typedName = 'James Dean';
@@ -150,7 +151,7 @@ describe("Form", () => {
         (ApiService.modifyPerson as jest.Mock).mockImplementation(() => Promise.reject(APIError));
         jest.spyOn(console, 'log');
 
-        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as any);
+        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
 
         const nameField = getByTestId('name-field');
         const phoneField = getByTestId('phone-field');
@@ -185,7 +186,7 @@ describe("Form", () => {
         const typedPhone = '111-2222-3';
         let cancelButton;
 
-        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as any);
+        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
 
         const nameField = getByTestId('name-field');
         const emailField = getByTestId('email-field');

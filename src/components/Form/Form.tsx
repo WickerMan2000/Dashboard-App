@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -55,11 +55,11 @@ export const Form = () => {
     validator(input);
   }, [input]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsEnabled(true);
     setInput((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     }));
   };
 

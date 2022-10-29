@@ -11,8 +11,8 @@ export interface PersonInterface {
 export interface InputContextInterface {
   person: PersonInterface;
   updatedPerson: UpdatedDetails;
-  setPerson: (args: any) => {};
-  setUpdatedPerson: (args: any) => {};
+  setPerson: (args: PersonInterface) => {};
+  setUpdatedPerson: (args: UpdatedDetails) => {};
 }
 
 export interface LoadingContextInterface {
