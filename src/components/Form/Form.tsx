@@ -7,7 +7,7 @@ import styled from "styled-components";
 import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
-import { PersonInterface } from "../../types/types";
+import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 
 const StyledForm = styled.form`
@@ -37,8 +37,8 @@ const StyledTextField = styled(TextField)`
 `;
 
 export const Form = () => {
-  const { setIsLoading } = useContext(LoadingContext);
-  const { person, setUpdatedPerson } = useContext(InputContext);
+  const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
+  const { person, setUpdatedPerson } = useContext<InputContextInterface>(InputContext);
   const { feedback, setFeedback, validator } = useFeedback();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [input, setInput] = useState<PersonInterface>(defaultPerson);

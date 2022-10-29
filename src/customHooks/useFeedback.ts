@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validateEmail } from "../helpers/helpers";
-import { FeedbackInterface, PersonInterface } from "../types/types";
+import { FeedbackEnhanced, FeedbackInterface, PersonInterface } from "../types/types";
 
 export const defaultFeedback = {
   nameMessage: "",
@@ -9,7 +9,7 @@ export const defaultFeedback = {
   ready: false,
 };
 
-export const useFeedback = () => {
+export const useFeedback = (): FeedbackEnhanced => {
   const [feedback, setFeedback] = useState<FeedbackInterface>(defaultFeedback);
 
   const validator = (value: PersonInterface) => {

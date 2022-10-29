@@ -3,14 +3,14 @@ import ApiService from "../../service/ApiService";
 import { Person } from "../Person/Person";
 import List from "@mui/material/List";
 import InputContext from "../../store/InputContextProvider";
-import { PersonInterface, UpdatedDetails } from "../../types/types";
+import { InputContextInterface, LoadingContextInterface, PersonInterface, UpdatedDetails } from "../../types/types";
 import Spinner from "../../UI/Spinner";
 import LoadingContext from "../../store/LoadingContextProvider";
 
 export const Persons = () => {
   const [persons, setPersons] = useState<Array<PersonInterface>>([]);
-  const { updatedPerson } = useContext(InputContext);
-  const { isLoading, setIsLoading } = useContext(LoadingContext);
+  const { updatedPerson } = useContext<InputContextInterface>(InputContext);
+  const { isLoading, setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
 
   useEffect(() => {
     const fetchPersons = async () => {
