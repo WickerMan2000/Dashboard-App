@@ -45,12 +45,11 @@ export const Persons = () => {
         component="nav"
         sx={{
           width: "100%",
-          maxWidth: "50%",
+          height: "460px",
           bgcolor: "background.paper",
           position: "relative",
           overflow: "auto",
-          maxHeight: 450,
-          "& ul": { padding: 0 },
+          padding: 0,
         }}
       >
         {persons.map((person, index) => (

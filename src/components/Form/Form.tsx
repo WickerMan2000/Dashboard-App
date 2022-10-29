@@ -10,11 +10,6 @@ import LoadingContext from "../../store/LoadingContextProvider";
 import { PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 
-const StyledFormControl = styled(FormControl)`
-  width: 100%;
-  padding-bottom: 10px;
-`;
-
 const StyledForm = styled.form`
   margin: 20px;
   max-width: 45%;
@@ -33,6 +28,12 @@ const FeedBack = styled.p`
   color: red;
   display: inline-block;
   font-size: 12px;
+`;
+
+const StyledTextField = styled(TextField)`
+  fieldset {
+    border-radius: 2px;
+  }
 `;
 
 export const Form = () => {
@@ -86,11 +87,11 @@ export const Form = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit} data-testid="form">
-      <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
-        <InputLabel shrink htmlFor="name">
+      <FormControl variant="standard" style={{ marginBottom: "-8px", width: "100%" }}>
+        <InputLabel shrink htmlFor="name" >
           Name
         </InputLabel>
-        <TextField
+        <StyledTextField
           name="name"
           id="name"
           value={input.name}
@@ -103,17 +104,18 @@ export const Form = () => {
             "data-testid": "name-field",
             style: {
               height: "2px",
-              border: "0px solid #ececec",
+              border: "1px solid #ececec",
+              fontSize: "15px",
             },
           }}
         />
-      </StyledFormControl>
+      </FormControl>
       <FeedBack data-testid="name-msg">{feedback.nameMessage}</FeedBack>
-      <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
+      <FormControl variant="standard" style={{ marginBottom: "-8px", width: "100%" }}>
         <InputLabel shrink htmlFor="email">
           Email address
         </InputLabel>
-        <TextField
+        <StyledTextField
           name="email"
           id="email"
           value={input.email}
@@ -127,16 +129,17 @@ export const Form = () => {
             style: {
               height: "2px",
               border: "0px solid #ececec",
+              fontSize: "15px",
             },
           }}
         />
-      </StyledFormControl>
+      </FormControl>
       <FeedBack data-testid="email-msg">{feedback.emailMessage}</FeedBack>
-      <StyledFormControl variant="standard" style={{ marginBottom: "-8px" }}>
+      <FormControl variant="standard" style={{ marginBottom: "-8px", width: "100%" }}>
         <InputLabel shrink htmlFor="phone">
           Phone
         </InputLabel>
-        <TextField
+        <StyledTextField
           name="phone"
           id="phone"
           value={input.phone}
@@ -150,16 +153,17 @@ export const Form = () => {
             style: {
               height: "2px",
               border: "0px solid #ececec",
+              fontSize: "15px",
             },
           }}
         />
-      </StyledFormControl>
+      </FormControl>
       <FeedBack data-testid="phone-msg">{feedback.phoneMessage}</FeedBack>
-      <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
+      <FormControl variant="standard" style={{ marginBottom: "15px", width: "100%" }}>
         <InputLabel shrink htmlFor="address">
           Address
         </InputLabel>
-        <TextField
+        <StyledTextField
           name="address"
           id="address"
           value={input.address}
@@ -173,15 +177,16 @@ export const Form = () => {
             style: {
               height: "2px",
               border: "0px solid #ececec",
+              fontSize: "15px",
             },
           }}
         />
-      </StyledFormControl>
-      <StyledFormControl variant="standard" style={{ marginBottom: "15px" }}>
+      </FormControl>
+      <FormControl variant="standard" style={{ marginBottom: "15px", width: "100%" }}>
         <InputLabel shrink htmlFor="company">
           Company
         </InputLabel>
-        <TextField
+        <StyledTextField
           name="company"
           id="company"
           value={input.company}
@@ -195,10 +200,11 @@ export const Form = () => {
             style: {
               height: "2px",
               border: "0px solid #ececec",
+              fontSize: "15px",
             },
           }}
         />
-      </StyledFormControl>
+      </FormControl>
       <StyledButtons>
         {isEnabled && (
           <Button

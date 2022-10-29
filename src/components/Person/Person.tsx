@@ -36,9 +36,20 @@ export const Person = (props: PersonInterface) => {
   return (
     <StyledListItem onClick={sendPersonDetails} data-testid={`person_${id}`}>
       <ListItemAvatar>
-        <Avatar src={photo} alt="person" data-testid="avatar" />
+        <Avatar 
+          src={photo} 
+          alt="person" 
+          data-testid="avatar" 
+          style={{ height: '50px', width: '50px', marginRight: '14px'}} 
+        />
       </ListItemAvatar>
-      <ListItemText primary={name} secondary={email} data-testid="name_&_email" />
+      <ListItemText 
+          primary={name} 
+          secondary={email} 
+          data-testid="name_&_email" 
+          sx={{ fontWeight: "bolder" }} 
+          secondaryTypographyProps={{ sx: { fontWeight: "lighter" } }} 
+        />
     </StyledListItem>
   );
 };
