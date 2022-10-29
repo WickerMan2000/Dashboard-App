@@ -180,7 +180,7 @@ describe("Form", () => {
         });
     });
 
-    it('should check if cancel button is pushed, the form is reset', () => {
+    it('should check if cancel button is clicked, the form will reset', () => {
         const typedName = 'James Dean';
         const typedPhone = '111-2222-3';
         let cancelButton;

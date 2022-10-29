@@ -14,7 +14,7 @@ describe("Person", () => {
         }));
 
         const { getByTestId} = render(<Person { ...mockedUserData } />);
-        const person = getByTestId('person');
+        const person = getByTestId(/person/i);
 
         fireEvent.click(person);
 
@@ -28,7 +28,7 @@ describe("Person", () => {
         jest.spyOn(console, 'log');
 
         const { getByTestId} = render(<Person { ...mockedUserData } />);
-        const person = getByTestId('person');
+        const person = getByTestId(/person/i);
 
         fireEvent.click(person);
 

@@ -34,7 +34,7 @@ export const Person = (props: PersonInterface) => {
   };
 
   return (
-    <StyledListItem onClick={sendPersonDetails} data-testid="person">
+    <StyledListItem onClick={sendPersonDetails} data-testid={`person_${id}`}>
       <ListItemAvatar>
         <Avatar src={photo} alt="person" data-testid="avatar" />
       </ListItemAvatar>

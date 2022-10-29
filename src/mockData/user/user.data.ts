@@ -8,6 +8,16 @@ export const mockedUserData = {
     address: "120 Cedar Street, Mansfield, Kentucky, 8890"
 };
 
+export const mockedAnotherUserData = {
+  id: "5c093af172c42a579bdb685f",
+  photo: "https://randomuser.me/api/portraits/men/3.jpg",
+  name: "Massey Ewing",
+  company: "STOCKPOST",
+  email: "massey.ewing@stockpost.ca",
+  phone: "+1 (948) 482-2392",
+  address: "716 Hazel Court, Hanover, Louisiana, 9603"
+};
+
 export const updatedMockedUserData = {
   updatedDetails: {
     id: "5c093af1aeca1bb00607fb2a",

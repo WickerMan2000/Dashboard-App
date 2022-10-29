@@ -23,7 +23,7 @@ describe("Persons", () => {
 
         expect(spinner).toBeInTheDocument();
 
-        const persons = await findAllByTestId('person');
+        const persons = await findAllByTestId(/person/i);
 
         expect(ApiService.getAllPersons).toHaveBeenCalledTimes(1);
         expect(persons.length).toBe(5);
@@ -38,7 +38,7 @@ describe("Persons", () => {
 
         const { getByTestId, queryAllByTestId } = renderWithLoadingProvider(<Persons />);
         const spinner = getByTestId('circular-spinner');
-        const persons = queryAllByTestId('person');
+        const persons = queryAllByTestId(/person/i);
 
         expect(spinner).toBeInTheDocument();
         expect(persons.length).toBe(0);
