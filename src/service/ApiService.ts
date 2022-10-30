@@ -1,6 +1,6 @@
 import axios from "axios";
 import { PersonInterface } from "../types/types";
-import { API } from "./constants";
+import { API } from "./constant";
 
 export default class ApiService {
   static async getAllPersons() {

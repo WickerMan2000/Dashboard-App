@@ -4,16 +4,22 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
+import { styled as styledMUi } from "@mui/material/styles";
 import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 
-const StyledForm = styled.form`
-  margin: 20px;
-  max-width: 45%;
-`;
+const StyledForm = styledMUi('form')(({ theme }) => ({
+  margin: '20px',
+  maxWidth: '45%',
+  [theme.breakpoints.down(768)]: {
+    marginLeft: "10px",
+    marginRight: "10px",
+    maxWidth: "70%"
+  }
+}));
 
 const StyledButtons = styled.div`
   display: flex;

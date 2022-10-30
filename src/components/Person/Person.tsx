@@ -2,19 +2,40 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 import { useContext } from "react";
 import InputContext from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import LoadingContext from "../../store/LoadingContextProvider";
 
-const StyledListItem = styled(ListItem)`
-  cursor: pointer;
-  &:hover {
-    background-color: whitesmoke;
+const StyledListItem = styled(ListItem)(({ theme }) => ({
+  cursor: 'pointer',
+  '&:hover': {
+    backgroundColor: 'whitesmoke'
+  },
+  [theme.breakpoints.down(768)]: {
+    maxHeight: 70,
+    position: 'relative'
   }
-`;
+}));
+
+const StyledListItemText = styled(ListItemText)(({ theme }) => ({
+  [theme.breakpoints.down(768)]: {
+    visibility: "hidden"
+  }
+}));
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  [theme.breakpoints.down(768)]: {
+    maxWidth: '45px',
+    maxHeight: '45px',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    margin: '-25px 0 0 -25px'
+  }
+}));
 
 export const Person = (props: PersonInterface) => {
   const { id, name, email, photo } = props;
@@ -36,14 +57,14 @@ export const Person = (props: PersonInterface) => {
   return (
     <StyledListItem onClick={sendPersonDetails} data-testid={`person_${id}`}>
       <ListItemAvatar>
-        <Avatar 
+        <StyledAvatar 
           src={photo} 
           alt="person" 
           data-testid="avatar" 
-          style={{ height: '50px', width: '50px', marginRight: '14px'}} 
+          style={{ height: '50px', width: '50px', marginRight: '14px' }} 
         />
       </ListItemAvatar>
-      <ListItemText 
+      <StyledListItemText
           primary={name} 
           secondary={email} 
           data-testid="name_&_email" 

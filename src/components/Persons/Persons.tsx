@@ -6,6 +6,15 @@ import InputContext from "../../store/InputContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface, UpdatedDetails } from "../../types/types";
 import Spinner from "../../UI/Spinner";
 import LoadingContext from "../../store/LoadingContextProvider";
+import { styled } from "@mui/material/styles";
+
+const StyledList = styled(List)(({ theme }) => ({
+  [theme.breakpoints.down(768)]: {
+    height: "576px",
+    maxWidth: "80px",
+    overflow: "scroll",
+  }
+}));
 
 export const Persons = () => {
   const [persons, setPersons] = useState<Array<PersonInterface>>([]);
@@ -31,8 +40,8 @@ export const Persons = () => {
   useEffect(() => {
     const { updatedDetails } = updatedPerson as UpdatedDetails;
     const updatedPersonsList = persons.map((person) =>
-      updatedDetails.id === (person as PersonInterface).id
-        ? { ...updatedDetails, photo: (person as PersonInterface).photo }
+      updatedDetails.id === person.id
+        ? { ...updatedDetails, photo: person.photo }
         : person
     );
     setPersons(updatedPersonsList as Array<PersonInterface>);
@@ -41,11 +50,10 @@ export const Persons = () => {
   return (
     <Fragment>
       {isLoading && <Spinner />}
-      <List
-        component="nav"
+      <StyledList
         sx={{
           width: "100%",
-          height: "460px",
+          height: "470px",
           bgcolor: "background.paper",
           position: "relative",
           overflow: "auto",
@@ -53,9 +61,9 @@ export const Persons = () => {
         }}
       >
         {persons.map((person, index) => (
-          <Person key={index} {...(person as PersonInterface)} />
+          <Person key={index} {...person} />
         ))}
-      </List>
+      </StyledList>
     </Fragment>
   );
 };

@@ -30,7 +30,6 @@ export const updatedMockedUserData = {
   }
 };
 
-
 export const mockedUsersList = [
     {
         id: "5c093af1c6ee9117a581c7d6",

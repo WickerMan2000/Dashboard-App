@@ -1,29 +1,30 @@
 import { fireEvent, render } from '@testing-library/react';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { defaultFeedback, useFeedback } from './useFeedback';
+import { PersonInterface } from "../types/types";
 
 const initialValues = { id: "", name: "", email: "", phone: "",   address: "", company: "" };
 
 const CustomForm = () => {
-    const [values, setValues] = useState(initialValues);
-    const [unmount, setUnmount] = useState(false);
+    const [values, setValues] = useState<PersonInterface>(initialValues);
+    const [unmount, setUnmount] = useState<boolean>(false);
     const { feedback, setFeedback, validator } = useFeedback();
 
     useEffect(() => {
         return () => setFeedback(defaultFeedback);
     }, [unmount]);
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setValues((prevState) => ({
           ...prevState,
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
         }));
       };
 
     const handleClick = () => setUnmount(true);
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         validator(values);
     };
 
