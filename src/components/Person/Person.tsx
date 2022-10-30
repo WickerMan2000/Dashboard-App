@@ -2,16 +2,20 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { useContext } from "react";
 import InputContext from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
-import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
+import { EnablerContextInterface, InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { StyledAvatar, StyledListItem, StyledListItemText } from "./styles";
+import EnablerContext from "../../store/EnablerContextProvider";
 
 export const Person = (props: PersonInterface) => {
   const { id, name, email, photo } = props;
   const { setPerson } = useContext<InputContextInterface>(InputContext);
   const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
+  const { setFormEnabled } = useContext<EnablerContextInterface>(EnablerContext);
 
   const sendPersonDetails = async () => {
+    setFormEnabled(true);
+
     try {
       setIsLoading(true);
       const { data } = await ApiService.getPerson(id);

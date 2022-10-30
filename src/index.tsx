@@ -5,17 +5,20 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import InputContextProvider from "./store/InputContext";
 import LoadingContextProvider from "./store/LoadingContext";
+import EnablerContextProvider from "./store/EnablerContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <LoadingContextProvider>
-    <InputContextProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </InputContextProvider>
+    <EnablerContextProvider>
+      <InputContextProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </InputContextProvider>
+    </EnablerContextProvider>
   </LoadingContextProvider>
 );
 

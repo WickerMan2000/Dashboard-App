@@ -60,7 +60,7 @@ export const Form = () => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit} data-testid="form">
+    <form onSubmit={handleSubmit} data-testid="form">
       <FormControl variant="standard" style={{ marginBottom: "-8px", width: "100%" }}>
         <InputLabel shrink htmlFor="name" >
           Name
@@ -200,6 +200,6 @@ export const Form = () => {
           Save
         </Button>
       </StyledButtons>
-    </StyledForm>
+    </form>
   );
 };

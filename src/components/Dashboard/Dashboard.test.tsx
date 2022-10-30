@@ -1,5 +1,6 @@
 import { fireEvent, waitFor } from '@testing-library/react';
-import { renderWithAllProviders } from '../../helpers/render.helpers';
+import { renderWithAllCustomProviders, renderWithAllProviders } from '../../helpers/render.helpers';
+import { mockedEnablerContextConfigurationData } from '../../mockData/context/context.data';
 import { mockedAnotherUserData, mockedUserData, mockedUsersList } from '../../mockData/user/user.data';
 import ApiService from '../../service/ApiService';
 import { Dashboard } from './Dashboard';
@@ -37,7 +38,7 @@ describe('Dashboard', () => {
             }
         }));
 
-        const { getByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
+        const { getByTestId, findAllByTestId } = renderWithAllCustomProviders(<Dashboard />, mockedEnablerContextConfigurationData);
 
         const persons = await findAllByTestId(/person/i);
         const nameField = getByTestId('name-field');
@@ -66,7 +67,7 @@ describe('Dashboard', () => {
             data: mockedUserData
         }));
 
-        const { getByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
+        const { getByTestId, findAllByTestId } = renderWithAllCustomProviders(<Dashboard />, mockedEnablerContextConfigurationData);
 
         const persons = await findAllByTestId(/person/i);
         const nameField = getByTestId('name-field');
@@ -103,7 +104,7 @@ describe('Dashboard', () => {
             data: mockedAnotherUserData
         }));
 
-        const { getByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
+        const { getByTestId, findAllByTestId } = renderWithAllCustomProviders(<Dashboard />, mockedEnablerContextConfigurationData);
 
         const persons = await findAllByTestId(/person/i);
         const emailField = getByTestId('email-field');
@@ -130,6 +131,30 @@ describe('Dashboard', () => {
             expect(await (ApiService.getPerson as jest.Mock).mock.results[1].value).toEqual({
                 data: mockedAnotherUserData
             });
+        });
+    });
+
+    it('should check if a user is clicked, the form will show up', async () => {
+        (ApiService.getPerson as jest.Mock).mockImplementation(() => Promise.resolve({
+            data: mockedUserData
+        }));
+
+        const { getByTestId, queryByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
+
+        const persons = await findAllByTestId(/person/i);
+        const message = getByTestId('message');
+
+        expect(message).toBeInTheDocument();
+        expect(queryByTestId('form')).toBeNull();
+
+        fireEvent.click(persons[1]);
+
+        expect(getByTestId('form')).toBeInTheDocument();
+        expect(message).not.toBeInTheDocument();
+        expect(ApiService.getPerson).toHaveBeenCalledTimes(1);
+        expect(ApiService.getPerson).toHaveBeenCalledWith(mockedUserData.id);
+        expect(await (ApiService.getPerson as jest.Mock).mock.results[0].value).toEqual({
+            data: mockedUserData
         });
     });
 });

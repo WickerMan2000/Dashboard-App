@@ -7,3 +7,8 @@ export const mockedInputContextConfigurationData = {
     setPerson: (args: PersonInterface) => {},
     setUpdatedPerson: (args: UpdatedDetails) => {},
 };
+
+export const mockedEnablerContextConfigurationData = {
+    formEnabled: true,
+    setFormEnabled: (args: boolean) => {},
+};

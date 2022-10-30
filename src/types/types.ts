@@ -20,6 +20,11 @@ export interface LoadingContextInterface {
   setIsLoading: (args: boolean) => any;
 };
 
+export interface EnablerContextInterface {
+  formEnabled: boolean,
+  setFormEnabled: (args: boolean) => any,
+};
+
 export interface FeedbackInterface {
   nameMessage: string;
   emailMessage: string;
