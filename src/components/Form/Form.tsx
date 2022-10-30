@@ -10,6 +10,7 @@ import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
+import { hasInput } from "../../helpers/helpers";
 
 const StyledForm = styledMUi('form')(({ theme }) => ({
   margin: '20px',
@@ -59,7 +60,7 @@ export const Form = () => {
   }, [person]);
 
   useEffect(() => {
-    validator(input);
+    hasInput(input) && validator(input);
   }, [input]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

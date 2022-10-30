@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { defaultFeedback, useFeedback } from './useFeedback';
 import { PersonInterface } from "../types/types";
 
-const initialValues = { id: "", name: "", email: "", phone: "",   address: "", company: "" };
+const initialValues = { id: "", name: "", email: "", phone: "", address: "", company: "" };
 
 const CustomForm = () => {
     const [values, setValues] = useState<PersonInterface>(initialValues);
