@@ -15,9 +15,9 @@ export const renderWithLoadingProvider = (tree: React.ReactNode) => render(
     <LoadingContextProvider>{tree}</LoadingContextProvider>
 );
 
-export const renderWithAllCustomProviders = (tree: React.ReactNode, input: EnablerContextInterface) => render(
+export const renderWithAllCustomProviders = (tree: React.ReactNode, enable: EnablerContextInterface) => render(
     <LoadingContextProvider>
-        <EnablerContext.Provider value={input}>
+        <EnablerContext.Provider value={enable}>
             <InputContextProvider>{tree}</InputContextProvider>
         </EnablerContext.Provider>
     </LoadingContextProvider>

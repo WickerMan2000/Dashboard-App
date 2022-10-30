@@ -157,4 +157,39 @@ describe('Dashboard', () => {
             data: mockedUserData
         });
     });
+
+    it('should check if user`s data have been edited, the form should be replaced by a message', async () => {
+        (ApiService.getPerson as jest.Mock).mockImplementation(() => Promise.resolve({
+            data: mockedUserData
+        }));
+
+        const { getByTestId, queryByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
+
+        const persons = await findAllByTestId(/person/i);
+
+        expect(getByTestId('message')).toBeInTheDocument();
+
+        fireEvent.click(persons[1]);
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        expect(queryByTestId('message')).not.toBeInTheDocument();
+
+        const emailField = getByTestId('email-field');
+        const saveButton = getByTestId('save-btn');
+
+        fireEvent.change(emailField, { target: { value: 'johndoe@gmail.com' } });
+        fireEvent.click(saveButton);
+
+        const form = queryByTestId('form');
+
+        await waitFor(async () => {
+            expect(form).not.toBeInTheDocument();
+            expect(getByTestId('message')).toBeInTheDocument();
+            expect(ApiService.getPerson).toHaveBeenCalledWith(mockedUserData.id);
+            expect(await (ApiService.getPerson as jest.Mock).mock.results[0].value).toEqual({
+                data: mockedUserData
+            });
+        });
+    });
 });

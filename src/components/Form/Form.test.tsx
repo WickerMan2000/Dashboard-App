@@ -59,45 +59,38 @@ describe("Form", () => {
     test.each(fields)(
         'should check the %p`s field functionality', (_, field, value) => {
             const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
-            let cancelButton;
     
             const actualField = getByTestId(field);
             const saveButton = getByTestId('save-btn');
-            cancelButton = queryByTestId('cancel-btn');
     
             expect(saveButton).toBeDisabled();
-            expect(cancelButton).not.toBeInTheDocument();
+            expect(queryByTestId('cancel-btn')).not.toBeInTheDocument();
     
             fireEvent.change(actualField, { target: { value } });
     
-            cancelButton = getByTestId('cancel-btn');
-    
             expect((actualField as HTMLInputElement).value).toBe(value);
             expect(saveButton).toBeEnabled();
-            expect(cancelButton).toBeInTheDocument();
+            expect(getByTestId('cancel-btn')).toBeInTheDocument();
         }
     );
 
     test.each(feedback)(
         'should check if appropriate feedback is given when %p is not provided', (_, field, message, value, feedback) => {
             const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
-            let cancelButton;
     
             const actualField = getByTestId(field);
             const actualFeedback = getByTestId(message);
             const saveButton = getByTestId('save-btn');
-            cancelButton = queryByTestId('cancel-btn');
     
             expect(saveButton).toBeDisabled();
+            expect(queryByTestId('cancel-btn')).toBeNull();
     
             fireEvent.change(actualField, { target: { value } });
-    
-            cancelButton = getByTestId('cancel-btn');
     
             expect((actualField as HTMLInputElement).value).toBe(value);
             expect(saveButton).toBeDisabled();
             expect(actualFeedback.textContent).toBe(feedback);
-            expect(cancelButton).toBeInTheDocument();
+            expect(getByTestId('cancel-btn')).toBeInTheDocument();
         }
     );
 
@@ -184,7 +177,6 @@ describe("Form", () => {
     it('should check if cancel button is clicked, the form will reset, save button will be disabled and cancel button will disappear', () => {
         const typedName = 'James Dean';
         const typedPhone = '111-2222-3';
-        let cancelButton;
 
         const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
 
@@ -198,8 +190,6 @@ describe("Form", () => {
         fireEvent.change(nameField, { target: { value: typedName } });
         fireEvent.change(phoneField, { target: { value: typedPhone } });
 
-        cancelButton = getByTestId('cancel-btn');
-
         expect(saveButton).toBeEnabled();
         expect((nameField as HTMLInputElement).value).toBe(typedName);
         expect((emailField as HTMLInputElement).value).toBe('mollie.oneill@viagrand.biz');
@@ -207,9 +197,7 @@ describe("Form", () => {
         expect((addressField as HTMLInputElement).value).toBe('120 Cedar Street, Mansfield, Kentucky, 8890');
         expect((companyField as HTMLInputElement).value).toBe('VIAGRAND');
 
-        fireEvent.click(cancelButton);
-
-        cancelButton = queryByTestId('cancel-btn');
+        fireEvent.click(getByTestId('cancel-btn'));
 
         expect((nameField as HTMLInputElement).value).toBe('Mollie Oneill');
         expect((emailField as HTMLInputElement).value).toBe('mollie.oneill@viagrand.biz');
@@ -218,6 +206,6 @@ describe("Form", () => {
         expect((companyField as HTMLInputElement).value).toBe('VIAGRAND');
 
         expect(saveButton).toBeDisabled();
-        expect(cancelButton).not.toBeInTheDocument();
+        expect(queryByTestId('cancel-btn')).not.toBeInTheDocument();
     });
 });
