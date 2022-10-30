@@ -1,47 +1,14 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import styled from "styled-components";
-import { styled as styledMUi } from "@mui/material/styles";
 import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 import { hasInput } from "../../helpers/helpers";
-
-const StyledForm = styledMUi('form')(({ theme }) => ({
-  margin: '20px',
-  maxWidth: '45%',
-  [theme.breakpoints.down(768)]: {
-    marginLeft: "10px",
-    marginRight: "10px",
-    maxWidth: "70%"
-  }
-}));
-
-const StyledButtons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 15px;
-`;
-
-const FeedBack = styled.p`
-  margin: 1px;
-  margin-bottom: 6px;
-  color: red;
-  display: inline-block;
-  font-size: 12px;
-`;
-
-const StyledTextField = styled(TextField)`
-  fieldset {
-    border-radius: 2px;
-  }
-`;
+import { FeedBack, StyledButtons, StyledForm, StyledTextField } from "./styles";
 
 export const Form = () => {
   const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
