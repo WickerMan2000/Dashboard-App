@@ -10,6 +10,10 @@ export const StyledListItem = styled(ListItem)(({ theme }) => ({
     '&:hover': {
       backgroundColor: 'whitesmoke'
     },
+    '&.Mui-selected': {
+      backgroundColor: '#1b68b3',
+      color: 'white'
+    },
     [theme.breakpoints.down(768)]: {
       maxHeight: 70,
       position: 'relative'

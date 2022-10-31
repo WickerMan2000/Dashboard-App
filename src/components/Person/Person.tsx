@@ -1,5 +1,5 @@
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import { useContext } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import InputContext from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import { EnablerContextInterface, InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
@@ -12,15 +12,27 @@ export const Person = (props: PersonInterface) => {
   const { setPerson } = useContext<InputContextInterface>(InputContext);
   const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
   const { setFormEnabled } = useContext<EnablerContextInterface>(EnablerContext);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
+  const isClickedRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    isClickedRef.current = isClicked;
+  }, [isClicked])
+
+  useEffect(() => {
+    return () => setIsClicked(false);
+  }, [isClicked])
 
   const sendPersonDetails = async () => {
     setFormEnabled(true);
+    setIsClicked(true);
 
     try {
       setIsLoading(true);
       const { data } = await ApiService.getPerson(id);
       setPerson({ ...data });
       setIsLoading(false);
+      setIsClicked(true);
     } catch (error) {
       setIsLoading(false);
       console.log((error as Error).message);
@@ -28,21 +40,21 @@ export const Person = (props: PersonInterface) => {
   };
 
   return (
-    <StyledListItem onClick={sendPersonDetails} data-testid={`person_${id}`}>
+    <StyledListItem onClick={sendPersonDetails} data-testid={`person_${id}`} selected={isClicked !== isClickedRef.current}>
       <ListItemAvatar>
-        <StyledAvatar 
-          src={photo} 
-          alt="person" 
-          data-testid="avatar" 
-          style={{ height: '50px', width: '50px', marginRight: '14px' }} 
+        <StyledAvatar
+          src={photo}
+          alt="person"
+          data-testid="avatar"
+          style={{ height: '50px', width: '50px', marginRight: '14px' }}
         />
       </ListItemAvatar>
       <StyledListItemText
-          primary={name} 
-          secondary={email} 
-          data-testid="name_&_email" 
-          sx={{ fontWeight: "bolder" }} 
-          secondaryTypographyProps={{ sx: { fontWeight: "lighter" } }} 
+          primary={name}
+          secondary={email}
+          data-testid="name_&_email"
+          sx={{ fontWeight: "bolder" }}
+          secondaryTypographyProps={{ sx: { fontWeight: "lighter" } }}
         />
     </StyledListItem>
   );
