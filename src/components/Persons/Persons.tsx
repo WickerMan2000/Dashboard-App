@@ -2,7 +2,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import ApiService from "../../service/ApiService";
 import { Person } from "../Person/Person";
 import InputContext from "../../store/InputContextProvider";
-import { InputContextInterface, LoadingContextInterface, PersonInterface, UpdatedDetails } from "../../types/types";
+import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import Spinner from "../../UI/Spinner";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { StyledList } from "./styles";

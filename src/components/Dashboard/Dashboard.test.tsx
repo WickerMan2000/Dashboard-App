@@ -159,8 +159,17 @@ describe('Dashboard', () => {
     });
 
     it('should check if user`s data have been edited, the form should be replaced by a message', async () => {
+        const typedEmail = 'johndoe@gmail.com';
         (ApiService.getPerson as jest.Mock).mockImplementation(() => Promise.resolve({
             data: mockedUserData
+        }));
+        (ApiService.modifyPerson as jest.Mock).mockImplementation(() => Promise.resolve({
+            data: {
+                data: {
+                    ...mockedUserData,
+                    email: typedEmail,
+                }
+            }
         }));
 
         const { getByTestId, queryByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
@@ -178,7 +187,7 @@ describe('Dashboard', () => {
         const emailField = getByTestId('email-field');
         const saveButton = getByTestId('save-btn');
 
-        fireEvent.change(emailField, { target: { value: 'johndoe@gmail.com' } });
+        fireEvent.change(emailField, { target: { value: typedEmail } });
         fireEvent.click(saveButton);
 
         const form = queryByTestId('form');
