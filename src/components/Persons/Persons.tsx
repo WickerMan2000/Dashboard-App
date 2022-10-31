@@ -29,7 +29,7 @@ export const Persons = () => {
   }, []);
 
   useEffect(() => {
-    const { updatedDetails } = updatedPerson as UpdatedDetails;
+    const { updatedDetails } = updatedPerson;
     const updatedPersonsList = persons.map((person) =>
       updatedDetails.id === person.id
         ? { ...updatedDetails, photo: person.photo }

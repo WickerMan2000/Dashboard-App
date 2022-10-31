@@ -75,7 +75,7 @@ export const Form = () => {
           margin="normal"
           type="text"
           variant="outlined"
-          placeholder="Name"
+          placeholder="Enter name"
           onChange={handleChange}
           inputProps={{
             "data-testid": "name-field",
@@ -99,7 +99,7 @@ export const Form = () => {
           margin="normal"
           type="text"
           variant="outlined"
-          placeholder="Email address"
+          placeholder="Enter email address"
           onChange={handleChange}
           inputProps={{
             "data-testid": "email-field",
@@ -123,7 +123,7 @@ export const Form = () => {
           margin="normal"
           type="text"
           variant="outlined"
-          placeholder="Phone"
+          placeholder="Enter phone"
           onChange={handleChange}
           inputProps={{
             "data-testid": "phone-field",
@@ -147,7 +147,7 @@ export const Form = () => {
           margin="normal"
           type="text"
           variant="outlined"
-          placeholder="Address"
+          placeholder="Enter address"
           onChange={handleChange}
           inputProps={{
             "data-testid": "address-field",
@@ -170,7 +170,7 @@ export const Form = () => {
           margin="normal"
           type="text"
           variant="outlined"
-          placeholder="Company"
+          placeholder="Enter company"
           onChange={handleChange}
           inputProps={{
             "data-testid": "company-field",

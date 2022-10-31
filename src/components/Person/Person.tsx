@@ -53,8 +53,8 @@ export const Person = (props: PersonInterface) => {
           primary={name}
           secondary={email}
           data-testid="name_&_email"
-          sx={{ fontWeight: "bolder" }}
-          secondaryTypographyProps={{ sx: { fontWeight: "lighter" } }}
+          primaryTypographyProps={{ fontWeight: 'bold', fontSize: '14px' }}
+          secondaryTypographyProps={{ sx: { fontWeight: "lighter", color: '#9b9292' } }}
         />
     </StyledListItem>
   );
