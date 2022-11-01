@@ -1,0 +1,15 @@
+To whom it may concern,
+
+  I would like to inform you that my assignment is ready. 
+  I took some initiative regarding the tasks I had to carry out. 
+  The first thing I decided concerns the demonstration of the 
+  "Select a user to edit" message to be displayed on the right panel. 
+  Additionally, when a user is selected, I decided, instead of 
+  populating the form with the props data passed from the Persons component 
+  to the Person component when a user is clicked, to use an HTTP request 
+  that gets the (unmutated) data from the users' resource. 
+  Finally the node version I use is v18.12.0
+
+Kind regards,
+
+Savvas
