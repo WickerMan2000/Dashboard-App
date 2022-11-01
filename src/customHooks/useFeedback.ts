@@ -16,21 +16,18 @@ export const useFeedback = (): FeedbackEnhanced => {
     switch (true) {
       case value.name === "":
         setFeedback({
-          ...feedback,
           nameMessage: "Name is required",
           ready: false,
         });
         break;
       case !validateEmail(value.email):
         setFeedback({
-          ...feedback,
           emailMessage: "Email has an invalid format",
           ready: false,
         });
         break;
       case value.phone === "":
         setFeedback({
-          ...feedback,
           phoneMessage: "Phone is required",
           ready: false,
         });

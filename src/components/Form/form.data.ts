@@ -9,5 +9,5 @@ export const fields = [
 export const feedback = [
     ['name', 'name-field', 'name-msg', '', 'Name is required'],
     ['email', 'email-field', 'email-msg', 'jsgmail.com', 'Email has an invalid format'],
-    ['phone', 'phone-field', "phone-msg", '', 'Phone is required'],
+    ['phone', 'phone-field', 'phone-msg', '', 'Phone is required'],
 ];

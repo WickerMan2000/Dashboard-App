@@ -26,9 +26,9 @@ export interface EnablerContextInterface {
 };
 
 export interface FeedbackInterface {
-  nameMessage: string;
-  emailMessage: string;
-  phoneMessage: string;
+  nameMessage?: string;
+  emailMessage?: string;
+  phoneMessage?: string;
   ready: boolean;
 };
 

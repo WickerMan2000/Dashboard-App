@@ -1,3 +1,12 @@
+export const mockedEmptyData= {
+  photo: "",
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  address: ""
+};
+
 export const mockedInputUserData = {
   photo: "https://randomuser.me/api/portraits/men/1.jpg",
   name: "Mollie Oneill",
@@ -12,6 +21,11 @@ export const mockedUserData = {
   ...mockedInputUserData
 };
 
+export const mockedEmptyUserData = {
+  id: "5c093af1aeca1bb00607fb2a",
+  ...mockedEmptyData
+};
+
 export const mockedAnotherUserData = {
   id: "5c093af172c42a579bdb685f",
   photo: "https://randomuser.me/api/portraits/men/3.jpg",
@@ -22,7 +36,7 @@ export const mockedAnotherUserData = {
   address: "716 Hazel Court, Hanover, Louisiana, 9603"
 };
 
-export const updatedMockedUserData = {
+export const mockedUpadtedUserData = {
   updatedDetails: {
     id: "5c093af1aeca1bb00607fb2a",
     photo: "https://randomuser.me/api/portraits/men/1.jpg",

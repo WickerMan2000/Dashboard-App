@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { renderWithCustomInputProvider } from "../../helpers/render.helpers";
 import { mockedInputContextConfigurationData } from "../../mockData/context/context.data";
-import { mockedInputUserData, mockedUserData } from "../../mockData/user/user.data";
+import { mockedEmptyUserData, mockedInputUserData, mockedUserData } from "../../mockData/user/user.data";
 import ApiService from "../../service/ApiService";
 import { InputContextInterface } from "../../types/types";
 import { Form } from "./Form";
@@ -207,5 +207,35 @@ describe("Form", () => {
 
         expect(saveButton).toBeDisabled();
         expect(queryByTestId('cancel-btn')).not.toBeInTheDocument();
+    });
+
+    it('should check if multiple required fields are empty, the error message (feedback) for each field to pop up when the actual field is filled in', () => {
+        const { getByTestId } = renderWithCustomInputProvider(<Form />, { ...mockedInputContextConfigurationData, person: mockedEmptyUserData } as InputContextInterface);
+
+        const nameField = getByTestId('name-field');
+        const emailField = getByTestId('email-field');
+        const phoneField = getByTestId('phone-field');
+        const nameFeedback = getByTestId('name-msg');
+        const emailFeedback = getByTestId('email-msg');
+        const phoneFeedback = getByTestId('phone-msg');
+
+        expect(nameFeedback.textContent).toBe('Name is required');
+
+        fireEvent.change(nameField, { target: { value: 'John Doe' } });
+
+        expect(nameFeedback.textContent).toBe('');
+        expect(emailFeedback.textContent).toBe('Email has an invalid format');
+
+        fireEvent.change(emailField, { target: { value: 'johndoe@gmail.com' } });
+
+        expect(nameFeedback.textContent).toBe('');
+        expect(emailFeedback.textContent).toBe('');
+        expect(phoneFeedback.textContent).toBe('Phone is required');
+
+        fireEvent.change(phoneField, { target: { value: '333-222-54' } });
+
+        expect(nameFeedback.textContent).toBe('');
+        expect(emailFeedback.textContent).toBe('');
+        expect(phoneFeedback.textContent).toBe('');
     });
 });

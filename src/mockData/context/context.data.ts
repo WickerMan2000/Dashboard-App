@@ -1,9 +1,9 @@
 import { PersonInterface, UpdatedDetails } from "../../types/types";
-import { mockedUserData, updatedMockedUserData } from "../user/user.data";
+import { mockedUserData, mockedUpadtedUserData } from "../user/user.data";
 
 export const mockedInputContextConfigurationData = {
     person: mockedUserData,
-    updatedPerson: updatedMockedUserData,
+    updatedPerson: mockedUpadtedUserData,
     setPerson: (args: PersonInterface) => {},
     setUpdatedPerson: (args: UpdatedDetails) => {},
 };
