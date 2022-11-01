@@ -17,6 +17,6 @@ export const FormContainer = styledMUi('div')(({ theme }) => ({
   [theme.breakpoints.down(768)]: {
     paddingLeft: "10px",
     paddingRight: "10px",
-    maxWidth: "70%"
+    maxWidth: "100%"
   }
 }));
