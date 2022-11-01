@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from "@testing-library/react";
 import { renderWithCustomInputProvider } from "../../helpers/render.helpers";
 import { mockedInputContextConfigurationData } from "../../mockData/context/context.data";
-import { mockedUserData } from "../../mockData/user/user.data";
+import { mockedInputUserData, mockedUserData } from "../../mockData/user/user.data";
 import ApiService from "../../service/ApiService";
 import { InputContextInterface } from "../../types/types";
 import { Form } from "./Form";
@@ -125,7 +125,7 @@ describe("Form", () => {
         expect(ApiService.modifyPerson).toHaveBeenCalledWith(
             mockedUserData.id,
             {
-                ...mockedUserData,
+                ...mockedInputUserData,
                 name: typedName,
                 phone: typedPhone,
             }
@@ -162,7 +162,7 @@ describe("Form", () => {
         expect(ApiService.modifyPerson).toHaveBeenCalledWith(
             mockedUserData.id,
             {
-                ...mockedUserData,
+                ...mockedInputUserData,
                 name: typedName,
                 phone: typedPhone,
             }

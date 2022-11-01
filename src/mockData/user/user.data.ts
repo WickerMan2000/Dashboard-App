@@ -1,11 +1,15 @@
+export const mockedInputUserData = {
+  photo: "https://randomuser.me/api/portraits/men/1.jpg",
+  name: "Mollie Oneill",
+  company: "VIAGRAND",
+  email: "mollie.oneill@viagrand.biz",
+  phone: "+1 (852) 535-3880",
+  address: "120 Cedar Street, Mansfield, Kentucky, 8890"
+};
+
 export const mockedUserData = {
-    id: "5c093af1aeca1bb00607fb2a",
-    photo: "https://randomuser.me/api/portraits/men/1.jpg",
-    name: "Mollie Oneill",
-    company: "VIAGRAND",
-    email: "mollie.oneill@viagrand.biz",
-    phone: "+1 (852) 535-3880",
-    address: "120 Cedar Street, Mansfield, Kentucky, 8890"
+  id: "5c093af1aeca1bb00607fb2a",
+  ...mockedInputUserData
 };
 
 export const mockedAnotherUserData = {

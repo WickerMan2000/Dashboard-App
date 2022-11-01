@@ -49,9 +49,10 @@ export const Form = () => {
     event.preventDefault();
 
     try {
+      delete input.id;
       setIsLoading(true);
-      const { data } = await ApiService.modifyPerson(person.id, input);
-      setUpdatedPerson({ updatedDetails: data.data });
+      const { data } = await ApiService.modifyPerson(person.id as string, input);
+      setUpdatedPerson({ updatedDetails: { id: person.id, ...data.data } });
       setIsLoading(false);
       setIsEnabled(false);
       setFormEnabled(false);

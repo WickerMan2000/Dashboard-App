@@ -29,7 +29,7 @@ export const Person = (props: PersonInterface) => {
 
     try {
       setIsLoading(true);
-      const { data } = await ApiService.getPerson(id);
+      const { data } = await ApiService.getPerson(id as string);
       setPerson({ ...data });
       setIsLoading(false);
       setIsClicked(true);

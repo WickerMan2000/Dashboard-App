@@ -2,7 +2,6 @@ import React from "react";
 import { PersonInterface, UpdatedDetails } from "../types/types";
 
 export const defaultPerson = {
-  id: "",
   name: "",
   email: "",
   phone: "",
