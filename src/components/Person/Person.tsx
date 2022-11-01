@@ -24,12 +24,12 @@ export const Person = (props: PersonInterface) => {
   }, [isClicked])
 
   const sendPersonDetails = async () => {
-    setFormEnabled(true);
     setIsClicked(true);
 
     try {
       setIsLoading(true);
       const { data } = await ApiService.getPerson(id as string);
+      setFormEnabled(true);
       setPerson({ ...data });
       setIsLoading(false);
       setIsClicked(true);

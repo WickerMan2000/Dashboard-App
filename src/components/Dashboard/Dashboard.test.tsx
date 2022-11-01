@@ -139,7 +139,7 @@ describe('Dashboard', () => {
             data: mockedUserData
         }));
 
-        const { getByTestId, queryByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
+        const { getByTestId, findByTestId, queryByTestId, findAllByTestId } = renderWithAllProviders(<Dashboard />);
 
         const persons = await findAllByTestId(/person/i);
         const message = getByTestId('message');
@@ -149,7 +149,7 @@ describe('Dashboard', () => {
 
         fireEvent.click(persons[1]);
 
-        expect(getByTestId('form')).toBeInTheDocument();
+        expect(await findByTestId('form')).toBeInTheDocument();
         expect(message).not.toBeInTheDocument();
         expect(ApiService.getPerson).toHaveBeenCalledTimes(1);
         expect(ApiService.getPerson).toHaveBeenCalledWith(mockedUserData.id);

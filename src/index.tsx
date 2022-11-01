@@ -11,15 +11,15 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <LoadingContextProvider>
-    <EnablerContextProvider>
-      <InputContextProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </InputContextProvider>
-    </EnablerContextProvider>
-  </LoadingContextProvider>
+    <React.StrictMode>
+      <LoadingContextProvider>
+        <EnablerContextProvider>
+          <InputContextProvider>
+              <App />
+          </InputContextProvider>
+        </EnablerContextProvider>
+      </LoadingContextProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
