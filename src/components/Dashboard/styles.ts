@@ -10,12 +10,13 @@ export const Container = styled.div`
 `;
 
 export const FormContainer = styledMUi('div')(({ theme }) => ({
-  margin: '20px',
+  padding: '20px',
   maxWidth: '50%',
   flex: '50%',
+  backgroundColor: 'white',
   [theme.breakpoints.down(768)]: {
-    marginLeft: "10px",
-    marginRight: "10px",
+    paddingLeft: "10px",
+    paddingRight: "10px",
     maxWidth: "70%"
   }
 }));

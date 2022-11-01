@@ -5,16 +5,14 @@ import Button from "@mui/material/Button";
 import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
-import { EnablerContextInterface, InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
+import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 import { hasInput } from "../../helpers/helpers";
 import { FeedBack, StyledButtons, StyledTextField } from "./styles";
-import EnablerContext from "../../store/EnablerContextProvider";
 
 export const Form = () => {
   const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
   const { person, setUpdatedPerson } = useContext<InputContextInterface>(InputContext);
-  const { setFormEnabled } = useContext<EnablerContextInterface>(EnablerContext);
   const { feedback, setFeedback, validator } = useFeedback();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [input, setInput] = useState<PersonInterface>(defaultPerson);
@@ -55,7 +53,6 @@ export const Form = () => {
       setUpdatedPerson({ updatedDetails: { id: person.id, ...data.data } });
       setIsLoading(false);
       setIsEnabled(false);
-      setFormEnabled(false);
     } catch (error) {
       setIsLoading(false);
       setIsEnabled(false);

@@ -30,7 +30,8 @@ export const Person = (props: PersonInterface) => {
       setIsLoading(true);
       const { data } = await ApiService.getPerson(id as string);
       setFormEnabled(true);
-      setPerson({ ...data });
+      setPerson({ ...data });   // Populates the Form with the data received from the API call as I mentioned to the document.txt. Comment out interchangeably.
+      // setPerson({ ...props }); // Populates the Form with the data received from the props as I mentioned to the document.txt. Comment out interchangeably.
       setIsLoading(false);
       setIsClicked(true);
     } catch (error) {
