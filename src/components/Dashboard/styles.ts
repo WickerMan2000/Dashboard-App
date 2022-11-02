@@ -14,10 +14,11 @@ export const Container = styled('div')(({ theme }) => ({
 }));
 
 export const FormContainer = styled('div')(({ theme }) => ({
-  padding: '20px',
-  maxWidth: '50%',
+  paddingTop: '20px',
   flex: '50%',
+  paddingLeft: '0px', 
   backgroundColor: 'white',
+  position: 'relative',
   [theme.breakpoints.down(768)]: {
     paddingLeft: "10px",
     paddingRight: "10px",

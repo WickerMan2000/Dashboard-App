@@ -43,7 +43,6 @@ export const Persons = () => {
       {isLoading && <Spinner />}
       <StyledList
         sx={{
-          maxWidth: "50%",
           flex: "50%",
           height: "35rem",
           bgcolor: "background.paper",

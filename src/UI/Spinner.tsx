@@ -6,15 +6,16 @@ const Spinner = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        position: "absolute",
-        zIndex: 999,
-        margin: "auto",
-        top: 150,
-        left: 150,
-        bottom: 150,
-        right: 150,
-        height: "50px",
+        position: 'fixed',
+        zIndex: '999',
+        overflow: 'show',
+        margin: 'auto',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        width: '50px',
+        height: '50px',
       }}
     >
       <CircularProgress data-testid="circular-spinner" />

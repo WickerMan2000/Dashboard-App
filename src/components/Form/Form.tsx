@@ -8,7 +8,7 @@ import LoadingContext from "../../store/LoadingContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
 import { hasInput } from "../../helpers/helpers";
-import { FeedBack, StyledButtons, StyledTextField } from "./styles";
+import { FeedBack, StyledButtons, StyledForm, StyledTextField } from "./styles";
 
 export const Form = () => {
   const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
@@ -61,7 +61,7 @@ export const Form = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} data-testid="form">
+    <StyledForm onSubmit={handleSubmit} data-testid="form">
       <FormControl variant="standard" style={{ marginBottom: "-8px", width: "100%" }}>
         <InputLabel shrink htmlFor="name" >
           Name
@@ -201,6 +201,6 @@ export const Form = () => {
           Save
         </Button>
       </StyledButtons>
-    </form>
+    </StyledForm>
   );
 };

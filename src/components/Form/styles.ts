@@ -1,6 +1,12 @@
 import TextField from "@mui/material/TextField";
 import styled from "styled-components";
 
+export const StyledForm = styled.form`
+    margin-left: 5%;
+    margin-right:5%;
+    width: 90%;
+`;
+
 export const StyledButtons = styled.div`
     display: flex;
     justify-content: flex-end;

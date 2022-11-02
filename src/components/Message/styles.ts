@@ -4,7 +4,7 @@ export const StyledMessage = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50%;
+    height: 90%;
     font-size: 24px;
     font-weight: bold;
 `;
