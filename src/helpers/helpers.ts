@@ -11,9 +11,7 @@ export const hasInput = (input: PersonInterface): boolean => {
   const values = Object.values(input);
 
   for (const value of values) {
-    if (value !== '') {
-      return true;
-    }
+    if (value) return true;
   }
 
   return false;
