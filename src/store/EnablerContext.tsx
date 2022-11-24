@@ -4,7 +4,7 @@ import EnablerContext from "./EnablerContextProvider";
 
 const { Provider } = EnablerContext;
 
-const EnablerContextProvider = ({ children }: { children: React.ReactNode }) => {
+const EnablerContextProvider = ({ children }: { children: JSX.Element }) => {
   const [formEnabled, setFormEnabled] = useState<boolean>(false);
 
   const EnablerContext = {

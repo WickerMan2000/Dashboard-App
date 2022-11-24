@@ -11,7 +11,6 @@ describe('ApiService', () => {
 
         expect(axios.get).toHaveBeenCalledWith(API);
     });
-
     
     it('should check if getPerson calls axios with user id', async () => {
         await ApiService.getPerson(mockedUserData.id);

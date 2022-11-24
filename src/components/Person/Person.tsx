@@ -17,10 +17,7 @@ export const Person = (props: PersonInterface) => {
 
   useEffect(() => {
     isClickedRef.current = isClicked;
-  }, [isClicked])
-
-  useEffect(() => {
-    return () => setIsClicked(false);
+    setIsClicked(false);
   }, [isClicked])
 
   const sendPersonDetails = async () => {
@@ -30,8 +27,7 @@ export const Person = (props: PersonInterface) => {
       setIsLoading(true);
       const { data } = await ApiService.getPerson(id as string);
       setFormEnabled(true);
-      setPerson({ ...data });   // Populates the Form with the data received from the API call as I mentioned to the document.txt. Comment out interchangeably.
-      // setPerson({ ...props }); // Populates the Form with the data received from the props as I mentioned to the document.txt. Comment out interchangeably.
+      setPerson({ ...data });
       setIsLoading(false);
       setIsClicked(true);
     } catch (error) {

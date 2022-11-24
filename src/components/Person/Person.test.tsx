@@ -13,7 +13,7 @@ describe("Person", () => {
             data: mockedUserData
         }));
 
-        const { getByTestId} = render(<Person { ...mockedUserData } />);
+        const { getByTestId } = render(<Person { ...mockedUserData } />);
         const person = getByTestId(/person/i);
 
         fireEvent.click(person);
@@ -27,7 +27,7 @@ describe("Person", () => {
         (ApiService.getPerson as jest.Mock).mockImplementation(() => Promise.reject(APIError));
         jest.spyOn(console, 'log');
 
-        const { getByTestId} = render(<Person { ...mockedUserData } />);
+        const { getByTestId } = render(<Person { ...mockedUserData } />);
         const person = getByTestId(/person/i);
 
         fireEvent.click(person);

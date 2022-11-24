@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from "@testing-library/react";
 import InputContext from "../store/InputContextProvider";
 import { EnablerContextInterface, InputContextInterface } from '../types/types';
@@ -7,15 +6,15 @@ import InputContextProvider from '../store/InputContext';
 import EnablerContext from '../store/EnablerContextProvider';
 import EnablerContextProvider from '../store/EnablerContext';
 
-export const renderWithCustomInputProvider = (tree: React.ReactNode, input: InputContextInterface) => render(
+export const renderWithCustomInputProvider = (tree: JSX.Element, input: InputContextInterface) => render(
     <InputContext.Provider value={input}>{tree}</InputContext.Provider>
 );
 
-export const renderWithLoadingProvider = (tree: React.ReactNode) => render(
+export const renderWithLoadingProvider = (tree: JSX.Element) => render(
     <LoadingContextProvider>{tree}</LoadingContextProvider>
 );
 
-export const renderWithAllCustomProviders = (tree: React.ReactNode, enable: EnablerContextInterface) => render(
+export const renderWithAllCustomProviders = (tree: JSX.Element, enable: EnablerContextInterface) => render(
     <LoadingContextProvider>
         <EnablerContext.Provider value={enable}>
             <InputContextProvider>{tree}</InputContextProvider>
@@ -23,7 +22,7 @@ export const renderWithAllCustomProviders = (tree: React.ReactNode, enable: Enab
     </LoadingContextProvider>
 );
 
-export const renderWithAllProviders = (tree: React.ReactNode) => render(
+export const renderWithAllProviders = (tree: JSX.Element) => render(
     <LoadingContextProvider>
         <EnablerContextProvider>
             <InputContextProvider>{tree}</InputContextProvider>

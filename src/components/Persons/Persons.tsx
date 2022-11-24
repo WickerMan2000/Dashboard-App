@@ -35,7 +35,7 @@ export const Persons = () => {
         ? { ...updatedDetails, photo: person.photo }
         : person
     );
-    setPersons(updatedPersonsList as Array<PersonInterface>);
+    setPersons(updatedPersonsList);
   }, [updatedPerson]);
 
   return (

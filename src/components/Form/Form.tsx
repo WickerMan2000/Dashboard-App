@@ -6,14 +6,14 @@ import InputContext, { defaultPerson } from "../../store/InputContextProvider";
 import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
-import { defaultFeedback, useFeedback } from "../../customHooks/useFeedback";
+import { useFeedback } from "../../customHooks/useFeedback";
 import { hasInput } from "../../helpers/helpers";
 import { FeedBack, StyledButtons, StyledForm, StyledTextField } from "./styles";
 
-export const Form = () => {
+export const Form: React.FC = () => {
   const { setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
   const { person, setUpdatedPerson } = useContext<InputContextInterface>(InputContext);
-  const { feedback, setFeedback, validator } = useFeedback();
+  const { feedback, validator } = useFeedback();
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const [input, setInput] = useState<PersonInterface>(defaultPerson);
 
@@ -22,7 +22,6 @@ export const Form = () => {
 
     return () => {
       setIsEnabled(false);
-      setFeedback(defaultFeedback);
     }
   }, [person]);
 

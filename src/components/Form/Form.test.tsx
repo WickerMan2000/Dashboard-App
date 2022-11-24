@@ -3,7 +3,6 @@ import { renderWithCustomInputProvider } from "../../helpers/render.helpers";
 import { mockedInputContextConfigurationData } from "../../mockData/context/context.data";
 import { mockedEmptyUserData, mockedInputUserData, mockedUserData } from "../../mockData/user/user.data";
 import ApiService from "../../service/ApiService";
-import { InputContextInterface } from "../../types/types";
 import { Form } from "./Form";
 import { feedback, fields } from "./form.data";
 
@@ -36,7 +35,7 @@ describe("Form", () => {
     });
 
     it('should render the Form with the given user`s data in each field', async () => {
-        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
+        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData);
 
         const nameField = getByTestId('name-field');
         const emailField = getByTestId('email-field');
@@ -56,9 +55,9 @@ describe("Form", () => {
         expect(cancelButton).not.toBeInTheDocument();
     });
 
-    test.each(fields)(
+    it.each(fields)(
         'should check the %p`s field functionality', (_, field, value) => {
-            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
+            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData);
     
             const actualField = getByTestId(field);
             const saveButton = getByTestId('save-btn');
@@ -74,9 +73,9 @@ describe("Form", () => {
         }
     );
 
-    test.each(feedback)(
+    it.each(feedback)(
         'should check if appropriate feedback is given when %p is not provided', (_, field, message, value, feedback) => {
-            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
+            const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData);
     
             const actualField = getByTestId(field);
             const actualFeedback = getByTestId(message);
@@ -107,7 +106,7 @@ describe("Form", () => {
         }));
         jest.spyOn(console, 'log');
 
-        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
+        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData);
 
         const nameField = getByTestId('name-field');
         const phoneField = getByTestId('phone-field');
@@ -144,7 +143,7 @@ describe("Form", () => {
         (ApiService.modifyPerson as jest.Mock).mockImplementation(() => Promise.reject(APIError));
         jest.spyOn(console, 'log');
 
-        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
+        const { getByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData);
 
         const nameField = getByTestId('name-field');
         const phoneField = getByTestId('phone-field');
@@ -178,7 +177,7 @@ describe("Form", () => {
         const typedName = 'James Dean';
         const typedPhone = '111-2222-3';
 
-        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData as InputContextInterface);
+        const { getByTestId, queryByTestId } = renderWithCustomInputProvider(<Form />, mockedInputContextConfigurationData);
 
         const nameField = getByTestId('name-field');
         const emailField = getByTestId('email-field');
@@ -210,7 +209,7 @@ describe("Form", () => {
     });
 
     it('should check if multiple required fields are empty, the error message (feedback) for each field to pop up when the actual field is filled in', () => {
-        const { getByTestId } = renderWithCustomInputProvider(<Form />, { ...mockedInputContextConfigurationData, person: mockedEmptyUserData } as InputContextInterface);
+        const { getByTestId } = renderWithCustomInputProvider(<Form />, { ...mockedInputContextConfigurationData, person: mockedEmptyUserData });
 
         const nameField = getByTestId('name-field');
         const emailField = getByTestId('email-field');

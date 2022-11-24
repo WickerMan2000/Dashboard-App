@@ -4,7 +4,7 @@ import LoadingContext from "./LoadingContextProvider";
 
 const { Provider } = LoadingContext;
 
-const LoadingContextProvider = ({ children }: { children: React.ReactNode }) => {
+const LoadingContextProvider = ({ children }: { children: JSX.Element }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const LoadingContext = {
