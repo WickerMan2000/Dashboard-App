@@ -41,3 +41,7 @@ export interface FeedbackEnhanced {
 export type UpdatedDetails = {
   updatedDetails: PersonInterface;
 };
+
+export type ErrorFunction = (err: Error) => void;
+
+export type CallBackFunction = () => Promise<void>;

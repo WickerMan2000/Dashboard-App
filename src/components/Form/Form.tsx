@@ -7,7 +7,7 @@ import ApiService from "../../service/ApiService";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { InputContextInterface, LoadingContextInterface, PersonInterface } from "../../types/types";
 import { useFeedback } from "../../customHooks/useFeedback";
-import { hasInput } from "../../helpers/helpers";
+import { catchErrorFn, hasInput } from "../../helpers/helpers";
 import { FeedBack, StyledButtons, StyledForm, StyledTextField } from "./styles";
 
 export const Form: React.FC = () => {
@@ -42,21 +42,25 @@ export const Form: React.FC = () => {
     setIsEnabled(false);
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
+    const errorFn = (error: Error) => {
+      setIsLoading(false);
+      setIsEnabled(false);
+      console.log((error as Error).message);
+    };
+
+    const modifyPerson = catchErrorFn(errorFn)(async () => {
       delete input.id;
       setIsLoading(true);
       const { data } = await ApiService.modifyPerson(person.id as string, input);
       setUpdatedPerson({ updatedDetails: { id: person.id, ...data.data } });
       setIsLoading(false);
       setIsEnabled(false);
-    } catch (error) {
-      setIsLoading(false);
-      setIsEnabled(false);
-      console.log((error as Error).message);
-    }
+    });
+
+    modifyPerson();
   };
 
   return (

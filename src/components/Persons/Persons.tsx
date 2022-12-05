@@ -6,25 +6,26 @@ import { InputContextInterface, LoadingContextInterface, PersonInterface } from 
 import Spinner from "../../UI/Spinner";
 import LoadingContext from "../../store/LoadingContextProvider";
 import { StyledList } from "./styles";
+import { catchErrorFn } from "../../helpers/helpers";
 
 export const Persons = () => {
   const [persons, setPersons] = useState<Array<PersonInterface>>([]);
   const { updatedPerson } = useContext<InputContextInterface>(InputContext);
   const { isLoading, setIsLoading } = useContext<LoadingContextInterface>(LoadingContext);
 
+  const errorFn = (error: Error) => {
+    setIsLoading(false);
+    console.log((error as Error).message);
+  };
+
   useEffect(() => {
-    const fetchPersons = async () => {
-      try {
-        setIsLoading(true);
-        const result = await ApiService.getAllPersons();
-        setPersons(result.data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-        console.log((error as Error).message);
-      }
-    };
-    
+    const fetchPersons = catchErrorFn(errorFn)(async () => {
+      setIsLoading(true);
+      const result = await ApiService.getAllPersons();
+      setPersons(result.data);
+      setIsLoading(false);
+    });
+
     fetchPersons();
   }, []);
 

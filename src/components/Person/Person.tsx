@@ -6,6 +6,7 @@ import { EnablerContextInterface, InputContextInterface, LoadingContextInterface
 import LoadingContext from "../../store/LoadingContextProvider";
 import { StyledAvatar, StyledListItem, StyledListItemText } from "./styles";
 import EnablerContext from "../../store/EnablerContextProvider";
+import { catchErrorFn } from "../../helpers/helpers";
 
 export const Person = (props: PersonInterface) => {
   const { id, name, email, photo } = props;
@@ -20,20 +21,24 @@ export const Person = (props: PersonInterface) => {
     setIsClicked(false);
   }, [isClicked])
 
-  const sendPersonDetails = async () => {
+  const sendPersonDetails = () => {
     setIsClicked(true);
 
-    try {
+    const errorFn = (error: Error) => {
+      setIsLoading(false);
+      console.log((error as Error).message);
+    };
+
+    const fetchPerson = catchErrorFn(errorFn)(async () => {
       setIsLoading(true);
       const { data } = await ApiService.getPerson(id as string);
       setFormEnabled(true);
       setPerson({ ...data });
       setIsLoading(false);
       setIsClicked(true);
-    } catch (error) {
-      setIsLoading(false);
-      console.log((error as Error).message);
-    }
+    })
+
+    fetchPerson();
   };
 
   return (

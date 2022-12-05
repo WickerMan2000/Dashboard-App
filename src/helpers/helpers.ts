@@ -1,4 +1,4 @@
-import { PersonInterface } from "../types/types";
+import { CallBackFunction, ErrorFunction, PersonInterface } from "../types/types";
 
 export const validateEmail = (email: string): boolean => {
   const regEx = "[a-z0-9]+@[a-z]+.[a-z]{2,3}";
@@ -16,3 +16,6 @@ export const hasInput = (input: PersonInterface): boolean => {
 
   return false;
 };
+
+export const catchErrorFn = (errorFunction: ErrorFunction) => (callBackFn: CallBackFunction) => () =>
+  callBackFn().catch((err: Error) => errorFunction(err));
